@@ -32,7 +32,7 @@ https://drive.google.com/drive/folders/1uN7a5m1PmhcXfs5OuOXWPbxyF_KKuZ3A?usp=sha
 
 `ADtrained_D.ckpt` is an adversarial-trained discriminator
 
-After Downloading, you can simply unzip the```.zip``` files to get ```Datsets/``` ,  ``` BenchmarkDatasets``` and  ```  PCBA/```,
+After Downloading, you can simply unzip the```.zip``` files to get ```Datsets/``` ,  ``` BenchmarkDatasets/``` and  ```  PCBA/```,
 
 and create the directions by ```mkdir AD_save  pretrainD_save  pretrainG_save``` then put the ```.ckpt``` files in the corresponding directions.
 
