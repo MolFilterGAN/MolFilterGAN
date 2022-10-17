@@ -38,8 +38,7 @@ def rm_voc_less(smiles_list, voc_ls):
                         label = False
                         #print(smiles)
                         break
-        if label:
-            smiles_list_final.append(smiles)
+        smiles_list_final.append(label)
     return smiles_list_final
 
 
@@ -117,29 +116,39 @@ if __name__ == "__main__":
     Infile_name=config.infile_name
     print(Infile_name)
     in_smi=[]
-    with open(Infile_name) as f:
-        for i in f:
-            in_smi.append(i.rstrip())
-    print('Input file contains %s mols.'%len(in_smi))
+    df=pd.read_csv(Infile_name,header=None)
+    mols_rd = df[0].values
+    # with open(Infile_name) as f:
+    #     for i in f:
+    #         in_smi.append(i.rstrip())
+    # print('Input file contains %s mols.'%len(in_smi))
     # rd molecules
-    mols_rd = pool(delayed(rd_mol)(s) for s in in_smi)
-    mols_rd = [i for i in mols_rd if i is not None]
+    # mols_rd = pool(delayed(rd_mol)(s) for s in in_smi)
+    # df[2]=mols_rd
+    # mols_rd = [i for i in mols_rd if i is not None]
     # Remove molecules contains elements other than H, C, N, O, F, P, S, Cl, Br, I ,isotope and rules filtering
-    check_results=pool(delayed(check_smi)(s) for s in mols_rd)
-    check_pass_smi=[mols_rd[i] for i,j in enumerate(check_results) if j]
+    #check_results=pool(delayed(check_smi)(s) for s in mols_rd)
+    #df[2] = check_results
+    # check_pass_smi=[mols_rd[i] for i,j in enumerate(check_results) if j]
     # Remove records containing more than two molecules
-    check_pass_smi=[i for i in check_pass_smi if '.' not in i]
+    #check_pass_smi=[i for i in mols_rd if '.' not in i]
     # remove duplicate molecules
-    check_pass_smi = list(set(check_pass_smi))
+    #check_pass_smi = list(set(check_pass_smi))
     #remove smiles contain str not in vocabulary
     voc_ls = []
-    with open('./Voc') as f:
+    with open('./Datasets/Voc') as f:
         for i in f:
             voc_ls.append(i.rstrip())
-    out_smi_ls = rm_voc_less(check_pass_smi, voc_ls)
-    print('Output file contains %s mols.'%len(out_smi_ls))
-    with open('%s_preprocessed.csv'%Infile_name,'w') as f:
-        for i in out_smi_ls:
-            f.write(i+'\n')
+    out_smi_ls = rm_voc_less(mols_rd, voc_ls)
+    df[2] = out_smi_ls
+    print(df)
+    outdf=df[df[2]==True]
+    #outdf=outdf[[0,1]]
+    outdf.to_csv('results/DDR1_rm_voc_less.csv',index=False,header=None)
+    print(outdf)
+    # print('Output file contains %s mols.'%len(out_smi_ls))
+    # with open('%s_preprocessed.csv'%Infile_name,'w') as f:
+    #     for i in out_smi_ls:
+    #         f.write(i+'\n')
 
 
