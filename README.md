@@ -5,6 +5,9 @@
 **MolFilterGAN: A Progressively Augmented Generative Adversarial Network for Triaging AI-designed Molecules**
 
 ## Requirement
+```git clone https://github.com/MolFilterGAN/MolFilterGAN``` 
+
+```cd MolFilterGAN``` 
 
 This project requires the following libraries.
 
