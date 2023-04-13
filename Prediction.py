@@ -181,7 +181,7 @@ if __name__ == "__main__":
         trian_data = MolData_pre(x_train, voc)
         train_set = DataLoader(trian_data, batch_size=1, shuffle=False, drop_last=False, collate_fn=trian_data.collate_d)
         smi_ls,logits_ls =esti.predict(train_set)
-        out_df=pd.DataFrame(smi_ls)
+        out_df=pd.DataFrame(x_train)
         out_df[1]=logits_ls
         out_df.columns=['smiles','logits']
         out_df.to_csv(out_file_name,index=False)
