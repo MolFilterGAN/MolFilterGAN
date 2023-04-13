@@ -178,7 +178,13 @@ if __name__ == "__main__":
         print(out_file_name)
         all_df = pd.read_csv(infile, header=None)
         x_train = all_df[0].values
-        trian_data = MolData_pre(x_train, voc)
+        x_train_cano=[]
+        for x in x_train:
+            try:
+                x_train_cano.append(Chem.MolToSmiles(Chem.MolFromSmiles(x), canonical=True, isomericSmiles=True))
+            except:
+                x_train_cano.append(x)
+        trian_data = MolData_pre(x_train_cano, voc)
         train_set = DataLoader(trian_data, batch_size=1, shuffle=False, drop_last=False, collate_fn=trian_data.collate_d)
         smi_ls,logits_ls =esti.predict(train_set)
         out_df=pd.DataFrame(x_train)
