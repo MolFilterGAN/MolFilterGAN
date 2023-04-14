@@ -4,6 +4,8 @@
 
 **MolFilterGAN: A Progressively Augmented Generative Adversarial Network for Triaging AI-designed Molecules**
 
+Published on [Journal of Cheminformatics](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-023-00711-1).
+
 ## Requirement
 ```git clone https://github.com/MolFilterGAN/MolFilterGAN``` 
 
